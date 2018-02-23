@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>
+                Document
+            </title>
+        </meta>
+    </head>
+    <body>
+    	<img src="download.png" id="img">
+        <canvas height="606" width="505" id="myCanvas" style="display: block;border:1px solid #d3d3d3;">
+        </canvas>
+        <script type="text/javascript">
+
+        function grayMyPixels (index,dataArr) {
+				var red = dataArr[index];
+				var green = dataArr[index+1];
+				var blue = dataArr[index+2];
+
+				var gray = (red + green + blue) / 3;
+
+				dataArr[index] = gray;
+				dataArr[index+1] = gray;
+				dataArr[index+2] = gray;
+			}
+
+        window.onload = function() {
+	        var canvas = document.getElementById('myCanvas');
+			var ctx = canvas.getContext('2d');
+			var img = document.getElementById("img");
+			ctx.drawImage(img,0,0);
+			var imageData = ctx.getImageData(0,0,505,606);
+
+	
+			for (var i = 0; i <= imageData.data.length-1; i += 4) {
+
+				grayMyPixels(i,imageData.data);			
+			};
+
+			ctx.putImageData(imageData,0,0);
+		}
+        </script>
+    </body>
+</html>
